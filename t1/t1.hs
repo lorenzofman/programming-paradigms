@@ -54,3 +54,14 @@ encodeChar c
     | otherwise = c
 encodeName :: String -> String
 encodeName name = map encodeChar name
+{-11-} -- Escreva uma função betterEncodeName :: String -> String que substitua vogais em uma string, conforme este esquema: a = 4, e = 3, i = 1, o = 0, u = 00.
+betterEncodeChar :: Char -> String
+betterEncodeChar c 
+    | c == 'a' || c == 'A' = "4"
+    | c == 'e' || c == 'E' = "3"
+    | c == 'i' || c == 'I' = "1"
+    | c == 'o' || c == 'O' = "0"
+    | c == 'u' || c == 'U' = "00"
+    | otherwise = [c]
+betterEncodeName :: String -> String
+betterEncodeName name = concat (map betterEncodeChar name)
