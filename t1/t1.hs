@@ -64,4 +64,8 @@ betterEncodeChar c
     | c == 'u' || c == 'U' = "00"
     | otherwise = [c]
 betterEncodeName :: String -> String
-betterEncodeName name = concat (map betterEncodeChar name)
+betterEncodeName name = concat (map betterEncodeChar name)  
+{-12-} -- Dada uma lista de strings, produzir outra lista com strings de 10 caracteres, usando o seguinte esquema: strings de entrada com mais de 10 caracteres são truncadas, strings com até 10 caracteres são completadas com '.' até ficarem com 10 caracteres
+func :: [String] -> [String]
+func listOfStrings = map (\str -> take 10 str ++ (replicate (10 - length str) '.')) listOfStrings
+
