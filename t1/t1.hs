@@ -43,3 +43,14 @@ lastName str = reverse (takeWhile (/= ' ') (reverse str))
 {-9-} -- Escreva uma função userName :: String -> String que, dado o nome completo de uma pessoa, crie um nome de usuário (login) da pessoa, formado por: primeira letra do nome seguida do sobrenome, tudo em minúsculas
 userName :: String -> String
 userName name =  map toLower ([head name] ++ (lastName name))
+{-10-} -- Escreva uma função encodeName :: String -> String que substitua vogais em uma string
+encodeChar :: Char -> Char
+encodeChar c 
+    | c == 'a' || c == 'A' = '4'
+    | c == 'e' || c == 'E' = '3'
+    | c == 'i' || c == 'I' = '2'
+    | c == 'o' || c == 'O' = '1'
+    | c == 'u' || c == 'U' = '0'
+    | otherwise = c
+encodeName :: String -> String
+encodeName name = map encodeChar name
