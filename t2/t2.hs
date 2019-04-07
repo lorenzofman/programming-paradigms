@@ -13,7 +13,11 @@ case1 = do
   writeFile "case1.svg" $ svgstrs
   where svgstrs = svgBegin width height ++ svgfigs ++ svgEnd
         svgfigs = svgShapes svgRectangle rectangles (map svgStyle palette)
-        rectangles = pattern1 nrectangles
-        palette = greenPalette nrectangles
-        nrectangles = 30
+        rectangles = pattern1 columns lines rectWidth rectHeight gap
+        palette = greenPalette (lines*columns)
+        lines = 10
+        columns = 5
+        gap = 10
+        rectWidth = 100
+        rectHeight = 50
         (width,height) = (1500,500) -- width,height da imagem SVG
