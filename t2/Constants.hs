@@ -1,5 +1,5 @@
 module Constants where 
     screenWidth :: Float
-    screenWidth = 1024
+    screenWidth = 512
     screenHeight :: Float
-    screenHeight = 1024
+    screenHeight = 512

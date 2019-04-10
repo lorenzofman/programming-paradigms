@@ -24,3 +24,9 @@ pattern3 = undefined
 --   where
 --        x i = i * offset
 --        y j = j * offset
+pattern4 :: Float -> Float -> Int -> [Point]
+pattern4 amplitude period n = [(x i ,y i) | i <- [0..fromIntegral n]]
+    where 
+        y i = amplitude * sin(pi * 2 * i/fromIntegral n)
+        x i = (i/fromIntegral n) * period
+
