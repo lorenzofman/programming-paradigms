@@ -4,6 +4,7 @@ import Patterns
 import Palette
 import Constants
 import Shapes
+import Colors
 import Text.Printf
 
 -------------------------------------------------------------------------------
