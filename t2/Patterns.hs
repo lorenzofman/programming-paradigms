@@ -1,6 +1,7 @@
 module Patterns where
 import Constants
 import Types
+import Utils
 pattern1 :: Int -> Int -> Float -> Float -> Float -> [Point]
 pattern1 n m width height offset = [((x i, y j)) | j <- columnIt, i <- lineIt]
     where
@@ -9,21 +10,23 @@ pattern1 n m width height offset = [((x i, y j)) | j <- columnIt, i <- lineIt]
         lineIt = [0..fromIntegral (n-1)]
         columnIt = [0..fromIntegral (m-1)]
 
-pattern2 :: Int -> Float -> Float -> Float -> [Point]
-pattern2 n radius centerX centerY= [(x i,y i) | i <- [0 .. fromIntegral n]]
+pattern2 :: Int -> Float -> Float -> Float -> Float -> [Point]
+pattern2 n radius centerX centerY angOffset = [(x i, y i) | i <- [0 .. fromIntegral n]]
     where 
         x i = ((cossine i ) * radius) + centerX
         y i = ((sine i ) * radius )+ centerY
-        cossine i = cos(2 * pi*i/floatN)
-        sine i = sin(2 * pi*i/floatN)
+        cossine i = cos(2 * pi*i/floatN + angOffset)
+        sine i = sin(2 * pi*i/floatN + angOffset)
         floatN = fromIntegral n
-pattern3 :: Int -> Int -> Float -> Float -> Float -> [Point]
-pattern3 = undefined
---pattern3 lines columns circleRadius drawRadius offset = [(x idx,y idx,circleRadius) | i <- [0 ..lines],j <- [0..columns], k <- [0..3]]
---pattern3 lines columns circleRadius drawRadius offset = concat [pattern2 3 100 100 30 (x i) (y j) | i <- [0..fromIntegral lines], j <- [0..fromIntegral columns] ]
---   where
---        x i = i * offset
---        y j = j * offset
+pattern3 :: Int -> Int -> Int -> Float -> Float -> [Point]
+pattern3 lines columns circlesPerBatch drawRadius offset = patternList
+    where
+        patternList = concat (map points positions)
+        positions = [(x i, y j) | i <- [1..fromIntegral columns], j <- [1..fromIntegral lines]]
+        x i = (i - ((fromIntegral columns)/2)) * offset
+        y j = (j - ((fromIntegral lines)/2)) * offset
+        points (x,y) = centralizePoints (pattern2 circlesPerBatch drawRadius x y (pi/6)) (cx,cy)
+        (cx,cy) = (screenWidth/2,screenHeight/2)
 pattern4 :: Float -> Float -> Int -> [Point]
 pattern4 amplitude period n = [(x i ,y i) | i <- [0..fromIntegral n]]
     where 
