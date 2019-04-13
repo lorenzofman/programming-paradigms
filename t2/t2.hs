@@ -41,8 +41,8 @@ case2 = do
         saturation = 1
         vibrance = 1
         smallRadius = 32
-        bigRadius = 256
-        n = 2048
+        bigRadius = 128
+        n = 32
         centerX = screenWidth/2
         centerY = screenHeight/2
         (width,height) = (screenWidth,screenHeight) -- width,height da imagem SVG
@@ -73,6 +73,21 @@ case4 = do
         positions = centralizePoints (pattern4 amplitude period n) ((width - period)/2,height/2) 
         palette = rgbPalette n
         n = 64
+        amplitude = 64
+        period = 256
+        circleRadius = 2
+        (width,height) = (screenWidth,screenHeight) -- width,height da imagem SVG
+caseX :: IO ()
+caseX = do
+  putStrLn("Input number of shapes: ")
+  n <- readLn
+  writeFile "caseX.svg" $ svgstrs n
+  where svgstrs n = svgBegin width height ++ (svgfigs n) ++ svgEnd
+        svgfigs n= svgShapes svgCircle (circles n) (map svgStyle (palette n))
+        circles n = createCircles' (positions n) circleRadius
+        positions n = centralizePoints (pattern4 amplitude period n) ((width - period)/2,height/2) 
+        --n = 64
+        palette n = rgbPalette n
         amplitude = 64
         period = 256
         circleRadius = 2
