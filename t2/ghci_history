@@ -1,0 +1,98 @@
+:q
+genCase4
+genCase3
+genCase2
+genCase1
+:load t2.hs 
+:q
+genCase4
+:load t2.hs
+genCase4
+:load t2.hs
+genCase4
+:load t2.hs
+genCase4
+:load t2.hs
+genCase4
+:load t2.hs
+genCase4
+genCase4
+genCase3
+genCase2
+genCase1
+genCase2
+genCase1
+case4
+:load t2.hs
+case4
+:load t2.hs
+case4
+:load t2.hs
+case4
+:load t2.hs
+case4
+:load t2.hs
+case4
+:load t2.hs
+case4
+:load t2.hs
+case4
+:load t2.hs
+case4
+:load t2.hs
+:load t2.hs
+case4
+:load t2.hs
+:load t2.hs
+:load t2.hs
+:load t2.hs
+:load t2.hs
+case4
+:load t2.hs
+case4
+case4
+case4
+:load t2.hs
+case4
+:load t2.hs
+:load t2.hs
+case4
+:load t2.hs
+case4
+:load t2.hs
+case4
+:load t2.hs
+case4
+case4
+:load t2.hs
+case4
+:load t2.hs
+case4
+:load t2.hs
+:load t2.hs
+:load t2.hs
+:load t2.hs
+:load t2.hs 
+:load t2.hs 
+:load t2.hs 
+:load t2.hs 
+:load t2.hs 
+:load t2.hs 
+:load t2.hs 
+:load t2.hs 
+:load t2.hs 
+:load t2.hs 
+:load t2.hs 
+:load t2.hs 
+:load t2.hs 
+:load t2.hs 
+:load t2.hs 
+:load t2.hs 
+show x
+x
+let x = 1 - abs (360/60 `mod` 2 - 1)
+1 - abs (360/60 `mod` 2 - 1)
+1 - abs (360/60 mod 2 - 1)
+case4
+:load t2.hs 
+"blah" 
