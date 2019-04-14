@@ -12,8 +12,8 @@ import Text.Printf
 -- Função principal que gera arquivo com imagem SVG
 -------------------------------------------------------------------------------
 
-case1 :: IO ()
-case1 = do
+genCase1 :: IO ()
+genCase1 = do
   writeFile "case1.svg" $ svgstrs
   where svgstrs = svgBegin width height ++ svgfigs ++ svgEnd
         svgfigs = svgShapes svgRectangle rectangles (map svgStyle palette)
@@ -28,8 +28,8 @@ case1 = do
         (width,height) = (screenWidth,screenHeight) -- width,height da imagem SVG
 
 
-case2 :: IO ()
-case2 = do
+genCase2 :: IO ()
+genCase2 = do
   writeFile "case2.svg" $ svgstrs
   where svgstrs = svgBegin width height ++ svgfigs ++ svgEnd
         --svgfigs = svgShapes svgRectangle rectangles (map svgStyle palette)
@@ -47,8 +47,8 @@ case2 = do
         centerY = screenHeight/2
         (width,height) = (screenWidth,screenHeight) -- width,height da imagem SVG
 
-case3 :: IO ()
-case3 = do
+genCase3 :: IO ()
+genCase3 = do
   writeFile "case3.svg" $ svgstrs
   where svgstrs = svgBegin width height ++ svgfigs ++ svgEnd
         svgfigs = svgShapes svgCircle circles (map svgStyle palette)
@@ -64,35 +64,18 @@ case3 = do
         rectWidth = 20
         rectHeight = 20
         (width,height) = (screenWidth,screenHeight) -- width,height da imagem SVG
-case4 :: IO ()
-case4 = do
+genCase4  :: IO ()
+genCase4  = do
   writeFile "case4.svg" $ svgstrs
   where svgstrs = svgBegin width height ++ svgfigs ++ svgEnd
         svgfigs = svgShapes svgCircle circles (map svgStyle palette)
         circles = createCircles' positions circleRadius
         positions = centralizePoints (pattern4 amplitude period n m yOffset) ((width - period)/2,height/2) 
         m = 3
-        yOffset = 64
+        yOffset = 128
         palette = reverse ((shades (255,0,0) n) ++ (shades (0,255,0) n) ++ (shades (0,0,255) n))
-        n = 16
-        amplitude = 64
+        n = 32
+        amplitude = 32
         period = 256
-        circleRadius = 32
-        (width,height) = (screenWidth,screenHeight) -- width,height da imagem SVG
-caseX :: IO ()
-caseX = do
-  putStr("Number of shapes: ")
-  n <- readLn
-  writeFile "caseX.svg" $ svgstrs n
-  putStrLn("SVG Created and saved to caseX.svg")
-  where svgstrs n = svgBegin width height ++ (svgfigs n) ++ svgEnd
-        svgfigs n = svgShapes svgCircle (circles n) (map svgStyle (palette n))
-        circles n = createCircles' (positions n) circleRadius
-        positions n = centralizePoints (pattern4 amplitude period n m yOffset) ((width - period)/2,height/2) 
-        palette n = rgbPalette n
-        m = 3
-        yOffset = 100
-        amplitude = 64
-        period = 256
-        circleRadius = 2
+        circleRadius = 4
         (width,height) = (screenWidth,screenHeight) -- width,height da imagem SVG
