@@ -27,9 +27,9 @@ pattern3 lines columns circlesPerBatch drawRadius offset = patternList
         y j = (j - ((fromIntegral lines)/2)) * offset
         points (x,y) = centralizePoints (pattern2 circlesPerBatch drawRadius x y (pi/6)) (cx,cy)
         (cx,cy) = (screenWidth/2,screenHeight/2)
-pattern4 :: Float -> Float -> Int -> [Point]
-pattern4 amplitude period n = [(x i ,y i) | i <- [0..fromIntegral n]]
+pattern4 :: Float -> Float -> Int -> Int -> Float -> [Point]
+pattern4 amplitude period n m yOffset = [(x i ,y i j) | j <- [0..fromIntegral m-1],i <- [0..fromIntegral n]]
     where 
-        y i = amplitude * sin(pi * 2 * i/fromIntegral n)
+        y i j = amplitude * sin(pi * 2 * i/fromIntegral n) + yOffset * (j - fromIntegral m/2)
         x i = (i/fromIntegral n) * period
 

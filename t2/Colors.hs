@@ -25,3 +25,9 @@ module Colors where
             y = abs (z - 1)
             z = mod' w 2.0
             w = (fromIntegral h)/ 60.0
+    rgb_black :: RGBColor
+    rgb_black = (000,000,000)
+    rgb_white :: RGBColor
+    rgb_white = (255,255,255)
+    rgb_grey :: RGBColor
+    rgb_grey = (128,128,128)

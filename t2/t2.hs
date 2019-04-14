@@ -19,7 +19,7 @@ case1 = do
         svgfigs = svgShapes svgRectangle rectangles (map svgStyle palette)
         rectangles = createRects' positions (rectWidth,rectHeight)
         positions = pattern1 columns lines rectWidth rectHeight gap
-        palette = greenPalette (lines*columns)
+        palette = (tones (222, 171, 33)) (lines*columns)
         lines = 10
         columns = 5
         gap = 10
@@ -70,24 +70,28 @@ case4 = do
   where svgstrs = svgBegin width height ++ svgfigs ++ svgEnd
         svgfigs = svgShapes svgCircle circles (map svgStyle palette)
         circles = createCircles' positions circleRadius
-        positions = centralizePoints (pattern4 amplitude period n) ((width - period)/2,height/2) 
-        palette = rgbPalette n
-        n = 64
+        positions = centralizePoints (pattern4 amplitude period n m yOffset) ((width - period)/2,height/2) 
+        m = 3
+        yOffset = 64
+        palette = reverse ((shades (255,0,0) n) ++ (shades (0,255,0) n) ++ (shades (0,0,255) n))
+        n = 16
         amplitude = 64
         period = 256
-        circleRadius = 2
+        circleRadius = 32
         (width,height) = (screenWidth,screenHeight) -- width,height da imagem SVG
 caseX :: IO ()
 caseX = do
-  putStrLn("Input number of shapes: ")
+  putStr("Number of shapes: ")
   n <- readLn
   writeFile "caseX.svg" $ svgstrs n
+  putStrLn("SVG Created and saved to caseX.svg")
   where svgstrs n = svgBegin width height ++ (svgfigs n) ++ svgEnd
-        svgfigs n= svgShapes svgCircle (circles n) (map svgStyle (palette n))
+        svgfigs n = svgShapes svgCircle (circles n) (map svgStyle (palette n))
         circles n = createCircles' (positions n) circleRadius
-        positions n = centralizePoints (pattern4 amplitude period n) ((width - period)/2,height/2) 
-        --n = 64
+        positions n = centralizePoints (pattern4 amplitude period n m yOffset) ((width - period)/2,height/2) 
         palette n = rgbPalette n
+        m = 3
+        yOffset = 100
         amplitude = 64
         period = 256
         circleRadius = 2
