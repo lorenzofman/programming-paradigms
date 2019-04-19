@@ -1,37 +1,55 @@
-localizado_em(santa_maria, rs).
-localizado_em(salvador, bahia).
-localizado_em(rs, brasil).
-localizado_em(bahia, brasil).
-localizado_em(paris, franca).
-localizado_em(franca, europa).
+is_member(A,[H|T]) :- A == H ; is_member(A,T).
 
-nasceu_em(andre, santa_maria).
-nasceu_em(joao, salvador).
-nasceu_em(joana,salvador).
-nasceu_em(michel,paris).
-nasceu_em(X, Y) :- localizado_em(Z, Y), nasceu_em(X, Z).
+ao_lado(X,Y,L) :- nextto(X,Y,L) ; nextto(Y,X,L).
+um_entre(X,Y,L) :- ao_lado(Z,X,L) , ao_lado(Z,Y,L).
 
+/*
+@ O avião do Cel. Milton solta fumaça vermelha.
+@ O rádio transmissor do Ten. Walter está com problemas.
+@ O piloto do avião que solta fumaça verde adora pescar.
+@ O Major Rui joga futebol nos finais de semana.
+@ O avião que solta fumaça verde está imediatamente à direita do avião que solta fumaça branca.
+@ O piloto que bebe leite está com o altímetro desregulado.
+@ O piloto do avião que solta fumaça preta bebe cerveja.
+@ O praticante de natação pilota o avião que solta fumaça vermelha.
+@ O Cap. Farfarelli está na ponta esquerda da formação.
+@ O piloto que bebe café voa ao lado do avião que está com pane no sistema hidráulico.
+@ O piloto que bebe cerveja voa ao lado do piloto que enfrenta problemas na bússola.
+@ O homem que pratica equitação gosta de beber chá.
+@ O Cap. Nascimento bebe somente água.
+@ O Cap. Farfarelli voa ao lado do avião que solta fumaça azul.
+Na formação, há um avião entre o que tem problema hidráulico e o com pane no altímetro.
+Um dos pilotos joga tênis.
+Há um avião com problema de temperatura.
+Dica final: use o predicado um_entre criado em outro exercício.
+*/
+% Squad = (Name,SmokeColor,Sport,Drink,Anomaly)
+squadSolution(Squad) :-
+  Squad = [_,_,_,_,_],
+  member(squad(milton     , red      , _      , _     , _         ), Squad),
+  member(squad(walter     , _        , _      , _     , radio     ), Squad),
+  member(squad(_          , green    , fishing, _     , _         ), Squad),
+  member(squad(rui        , _        , soccer , _     , _         ), Squad),
+  member(squad(_          , _        , _      , milk  , altimeter ), Squad),
+  member(squad(_          , black    , _      , beer  , _         ), Squad),
+  member(squad(_          , red      , swim   , _     , _         ), Squad),
+  member(squad(_          , _        , _      , _     , _         ), Squad),
+  member(squad(_          , _        , horses , tea   , _         ), Squad),
+  member(squad(born       , _        , _      , water , _         ), Squad),
+  member(squad(_          , _        , _      , _   , _           ), Squad),
+  um_entre(squad(_ , _, _, _, hydra), squad(_, _, _, _, altimeter ), Squad),
+  member(squad(_          , _        , tenis  , _ , _             ), Squad),
+  member(squad(_          , _        , _  , _ , temperature       ), Squad),
+  ao_lado(squad(farfarelli, _, _, _, _), squad(_, blue, _, _, _ ), Squad),
+  ao_lado(squad(_, _, _, _, hydra), squad(_, _, _, coffe, _ ), Squad),
+  ao_lado(squad(_, _, _, _, compass), squad(_, _, _, beer, _ ), Squad),
+  [squad(farfarelli,_,_,_,_),_,_,_,_] = Squad,
+  nextto(squad(_,white,_,_,_), squad(_,green,_,_,_   ), Squad).
 
-mora_em(andre, paris).
-mora_em(joao, salvador).
-mora_em(X, Y) :- localizado_em(Z, Y), mora_em(X, Z).
+positivos1([],[]).
+positivos1([H|T],L) :- H > 0, positivos1(T,Resto), L = [H|Resto].
+positivos1([H|T],L) :- H =< 0, positivos1(T,L).
 
-idade(andre, 25).
-idade(joao, 32).
-idade(joana,22).
-idade(michel,40).
-
-gaucho(X) :- nasceu_em(X, rs).
-brasileiro(X) :- nasceu_em(X, brasil).
-europeu(X) :- nasceu_em(X, europa).
-santaMariense(X) :- nasceu_em(X,santa_maria).
-
-maisVelho(X,Y) :- idade(X,N),idade(Y,M), N > M.
-
-soma(A,B,C) :- C is A + B.
-pred(A,B,C) :- X is (A+B)^2, C is X*2 + 1.
-hipotenusa(A,B,C) :- X is (A^2+B^2), C is X^0.5.
-
-anoNasc(X,A) :- idade(X,I), A is 2019 - I.
-
-isVowel(A) :- member(A,[a,b,c,d,e]).
+positivos2([],[]).
+positivos2([H|T],L) :- H > 0, L = [H|Resto], positivos2(T,Resto).
+positivos2([H|T],L) :- H =< 0, positivos2(T,L).
