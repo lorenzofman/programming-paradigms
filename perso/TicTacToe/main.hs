@@ -8,6 +8,7 @@
 
 import Graphics.Gloss
 import Data.Maybe
+import Data.List
 import Control.Monad
 import Control.Applicative
 import Graphics.Gloss.Interface.Pure.Game
@@ -51,8 +52,18 @@ drawCross (x,y) = color aquaColor (translate  x' y'  (rectangleSolid rectSize re
         rectSize = (nodeSize/3)*2
         nodeSize = screenSizef/gridSizef
 
+equalY :: Coordinates -> Coordinates -> Bool
+equalY coord1 coord2 = snd coord1 == snd coord2
+
+row :: Int -> [Coordinates] -> Bool
+row columns coords = (filter (\group -> (length group) == columns) groups) /= []
+    where
+        groups = groupBy equalY coords
 evaluateWinner :: Board -> Maybe Player
-evaluateWinner board = Nothing
+evaluateWinner board
+    | row gridSize (noughts board) = Just Nought
+    | row gridSize (crosses board) = Just Cross
+    | otherwise = Nothing
 
 winText :: String -> Picture
 winText str = Scale ratio ratio posText
