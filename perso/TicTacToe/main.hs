@@ -12,11 +12,10 @@ type Coordinates = (Int,Int)
 data Player = Nought | Cross
 
 data Board = Board
-{
-    noughts :: [Coordinates],
+    { noughts :: [Coordinates],
     crosses :: [Coordinates],
     player :: Player
-}
+    }
 --https://www.colorhexa.com/e0115f
 rubyColor = makeColor 0.876 0.067 0.373 1
 aquaColor = makeColor 0.067 0.878 0.573 1
@@ -24,13 +23,27 @@ aquaColor = makeColor 0.067 0.878 0.573 1
 emptyBoard :: Board
 emptyBoard = Board [] [] Nought
 drawNought :: Coordinates -> Picture
-drawNought (x,y) = color $ crossColor translate x' y' $ thickCircle radius (radius * 0.3)
+drawNought (x,y) = color rubyColor (translate  x' y'  (thickCircle radius (radius * 0.3)))
     where
-        x' = x * nodeSize
-        y' = y * nodeSize
-        crossColor = rubyColor
+        x' = fromIntegral x * nodeSize
+        y' = fromIntegral y * nodeSize
         radius = nodeSize/3
-        nodeSize = screenSize/gridSize
+        nodeSize = screenSizef/gridSizef
 drawCross :: Coordinates -> Picture
-drawCross (x,y) = color 
-main = display (InWindow screenName screenSize screenSize (10, 10)) bgColor pictureList)
+drawCross (x,y) = color aquaColor (translate  x' y'  (rectangleSolid rectSize rectSize))
+    where
+        x' = fromIntegral x * nodeSize
+        y' = fromIntegral y * nodeSize
+        rectSize = (nodeSize/3)*2
+        nodeSize = screenSizef/gridSizef
+drawBoard :: Board -> Picture
+drawBoard board = Pictures $ ns ++ cs
+        where
+            cs = fmap (drawNought) $ noughts board
+            ns = fmap (drawCross) $ crosses board
+main :: IO()
+main = play window bgColor 1 emptyBoard (drawBoard) undefined undefined
+    where 
+        window = InWindow screenName (screenSize,screenSize) (10, 10)
+        screenName = "Tic Tac Toe"
+        bgColor = makeColor 0.15 0.15 0.15 1
