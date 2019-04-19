@@ -26,6 +26,10 @@ data Board = Board
 rubyColor = makeColor 0.876 0.067 0.373 1
 aquaColor = makeColor 0.067 0.878 0.573 1
 
+-- predicateCount 
+count :: (a -> Bool) -> [a] -> Int
+count predicate list = length $ filter predicate list
+
 pushToken :: Coordinates -> Board -> Board
 pushToken c b
     | elem c (crosses b) || elem c (noughts b) = b
@@ -52,13 +56,12 @@ drawCross (x,y) = color aquaColor (translate  x' y'  (rectangleSolid rectSize re
         rectSize = (nodeSize/3)*2
         nodeSize = screenSizef/gridSizef
 
-equalY :: Coordinates -> Coordinates -> Bool
-equalY coord1 coord2 = snd coord1 == snd coord2
-
 row :: Int -> [Coordinates] -> Bool
-row columns coords = (filter (\group -> (length group) == columns) groups) /= []
-    where
-        groups = groupBy equalY coords
+row columns coords = any (==columns) columnsCount
+    where 
+        columnsCount = [elemWithColumn c | c <- [-range..range]]
+        elemWithColumn col = count (\coord -> snd coord == col) coords
+        range = div columns 2
 evaluateWinner :: Board -> Maybe Player
 evaluateWinner board
     | row gridSize (noughts board) = Just Nought
