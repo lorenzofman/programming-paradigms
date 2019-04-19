@@ -92,9 +92,9 @@ column rows coords = any (==rows) rowsCount
         rowsCount = [elemWithRow r | r <- [-range..range]]
         elemWithRow rw = count (\coord -> fst coord == rw) coords
         range = div rows 2
--- Easy peasy, checks for same x,y coordinates
+-- Easy peasy, checks for same x,y coordinates and the opposite ones
 diag :: Int -> [Coordinates] -> Bool
-diag cont coords = (count (\x -> fst x == snd x) coords) == cont
+diag cont coords = (count (\x -> fst x == snd x) coords) == cont || (count (\x -> fst x == -snd x) coords) == cont 
 
 -- This function can tell who is the winner
 -- Using maybe which is a I.M.H.O a complex way of saying that a class can have a null value
