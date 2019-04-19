@@ -1,12 +1,8 @@
 module Constants where
-    screenWidthf :: Float
-    screenWidthf = 512
-    screenHeightf :: Float
-    screenHeightf = 512
-    screenSizef = (screenWidthf,screenHeightf)
+    screenSize :: Float
+    screenSizef = 512
 
-    screenWidth :: Int
-    screenWidth = 512
-    screenHeight :: Int
-    screenHeight = 512
-    screenSize = (screenWidth,screenHeight)
+    screenSize :: Int
+    screenSize = 512
+    
+    gridSize = 3
