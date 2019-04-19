@@ -62,10 +62,18 @@ row columns coords = any (==columns) columnsCount
         columnsCount = [elemWithColumn c | c <- [-range..range]]
         elemWithColumn col = count (\coord -> snd coord == col) coords
         range = div columns 2
+column :: Int -> [Coordinates] -> Bool
+column rows coords = any (==rows) rowsCount
+    where 
+        rowsCount = [elemWithRow r | r <- [-range..range]]
+        elemWithRow rw = count (\coord -> fst coord == rw) coords
+        range = div rows 2
+diag :: Int -> [Coordinates] -> Bool
+diag cont coords = (count (\x -> fst x == snd x) coords) == cont
 evaluateWinner :: Board -> Maybe Player
 evaluateWinner board
-    | row gridSize (noughts board) = Just Nought
-    | row gridSize (crosses board) = Just Cross
+    | row gridSize (noughts board) || column gridSize (noughts board) || diag gridSize (noughts board) = Just Nought
+    | row gridSize (crosses board) || column gridSize (crosses board) || diag gridSize (crosses board) = Just Cross
     | otherwise = Nothing
 
 winText :: String -> Picture
@@ -111,4 +119,4 @@ main = play window bgColor 1 emptyBoard (drawBoard) handleKeys (flip const)
     where 
         window = InWindow screenName (screenSize,screenSize) (10, 10)
         screenName = "Tic Tac Toe"
-        bgColor = makeColor 0.15 0.15 0.15 1
+        bgColor = makeColor 0.1 0.1 0.1 1
