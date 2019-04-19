@@ -1,9 +1,9 @@
 module Constants where
     screenSizef :: Float
-    screenSizef = 1024
+    screenSizef = 512
 
     screenSize :: Int
-    screenSize = 1024
+    screenSize = 512
 
     gridSize :: Int
     gridSize = 3
