@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 ///	map =:= System.Linq.Select()
 ///	filter =:= System.Linq.Where()
 ///	Linq methods always return an Enumerable which needs to be converted to a list if we wish to use as a list
+/// C# has a head and last version as well
+/// And even a safe version which is FirstOrDefault which can returns a default number even with empty lists
 /// </summary>
 namespace List1
 {
@@ -43,5 +45,7 @@ namespace List1
 		private static Func<char, string, bool> CharFound = (c, str) => str.Contains(c);
 
 		private static Func<char, string, bool> CharFound2 = (c, str) => str.Where(ch => ch == c).Count() > 0;
+
+		private static Func<List<string>, List<string>> FilterALast = (xs) => xs.Where(x => x.Last() == 'a').ToList();
 	}
 }
