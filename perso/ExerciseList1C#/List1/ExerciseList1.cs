@@ -36,5 +36,8 @@ namespace List1
 
 		private static Func<List<int>, List<int>> OnlyInRange = (list) => list.Where(x => x >= 1 && x <= 100).ToList();
 
+		private static Func<List<int>, List<int>> OnlyYoung = (list) => list.Where(x => x <= 2019 - 1080).ToList();
+
+
 	}
 }
