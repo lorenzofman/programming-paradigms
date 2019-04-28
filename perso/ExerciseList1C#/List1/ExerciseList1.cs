@@ -41,5 +41,7 @@ namespace List1
 		private static Func<List<int>,List<int>> FilterEven = (list) => list.Where(x => x % 2 == 0).ToList();
 
 		private static Func<char, string, bool> CharFound = (c, str) => str.Contains(c);
+
+		private static Func<char, string, bool> CharFound2 = (c, str) => str.Where(ch => ch == c).Count() > 0;
 	}
 }
