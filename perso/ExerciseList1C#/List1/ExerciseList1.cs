@@ -32,12 +32,14 @@ namespace List1
 
 		private static Func<List<float>, List<float>> ApplyMathFunc = (ns) => ns.Select(n => 3 * n * n + 2f / n + 1).ToList();
 
-		private static Func<List<int>, List<int>> OnlyNegative = (ns) => ns.Where(n => n < 0).ToList();
+		private static Func<List<int>, List<int>> FilterNegative = (ns) => ns.Where(n => n < 0).ToList();
 
-		private static Func<List<int>, List<int>> OnlyInRange = (list) => list.Where(x => x >= 1 && x <= 100).ToList();
+		private static Func<List<int>, List<int>> FilterRange = (list) => list.Where(x => x >= 1 && x <= 100).ToList();
 
-		private static Func<List<int>, List<int>> OnlyYoung = (list) => list.Where(x => x <= 2019 - 1080).ToList();
+		private static Func<List<int>, List<int>> FilterYoung = (list) => list.Where(x => x <= 2019 - 1080).ToList();
 
+		private static Func<List<int>,List<int>> FilterEven = (list) => list.Where(x => x % 2 == 0).ToList();
 
+		
 	}
 }
