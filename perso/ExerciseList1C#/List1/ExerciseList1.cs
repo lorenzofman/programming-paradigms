@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 ///		https://www.tabsoverspaces.com/233633-head-and-tail-like-methods-on-list-in-csharp-and-fsharp-and-python-and-haskell
 ///	map =:= System.Linq.Select()
 ///	filter =:= System.Linq.Where()
+///	Linq methods always return an Enumerable which needs to be converted to a list if we wish to use as a list
 /// </summary>
 namespace List1
 {
@@ -33,7 +34,7 @@ namespace List1
 
 		private static Func<List<int>, List<int>> OnlyNegative = (ns) => ns.Where(n => n < 0).ToList();
 
-
+		private static Func<List<int>, List<int>> OnlyInRange = (list) => list.Where(x => x >= 1 && x <= 100).ToList();
 
 	}
 }
