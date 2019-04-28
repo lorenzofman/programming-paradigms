@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 /// References: 
 ///		https://blog.submain.com/csharp-functional-programming/
 ///		https://www.tabsoverspaces.com/233633-head-and-tail-like-methods-on-list-in-csharp-and-fsharp-and-python-and-haskell
-///		
+///	map =:= System.Linq.Select()
+///	filter =:= System.Linq.Where()
 /// </summary>
 namespace List1
 {
@@ -27,6 +28,12 @@ namespace List1
 		private static Func<List<string>, List<string>> SuperList = (xs) => xs.Select(x => "Super" + x).ToList();
 
 		private static Func<string, int> SpaceCount = (str) => str.Where(x => x == ' ').Count();
+
+		private static Func<List<float>, List<float>> ApplyMathFunc = (ns) => ns.Select(n => 3 * n * n + 2f / n + 1).ToList();
+
+		private static Func<List<int>, List<int>> OnlyNegative = (ns) => ns.Where(n => n < 0).ToList();
+
+
 
 	}
 }
