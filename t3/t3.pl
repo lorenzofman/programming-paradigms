@@ -39,7 +39,11 @@ potN0(N,L) :- N >= 0, L = [H|T], pow(2,N,H),N1 is N-1, potN0(N1,T).
 zipMult([],[],[]).
 zipMult(L1,L2,L3) :- L1 = [H1|T1],L2 = [H2|T2], L3 = [H3|T3], H3 is H2 * H1, zipMult(T1,T2,T3).
 % 11) Defina um predicado recursivo potencias(N,L), de forma que L seja uma lista com as N primeiras potências de 2, sendo a primeira 2^0 e assim por diante, conforme o exemplo abaixo:
-potencias(0,[]).
-potencias(1,1).
-potencias(N,L) :- N >= 0, L = [H|H1|T], H1 is H*2,N1 is N-1, potencias(N1,T).
-% 12)
+potencias(0,[0]).
+potencias(1,[1]).
+potencias(N,L) :- potencias(0,N,L).
+potencias(I,N,[]) :- N == I.
+potencias(I,N,L) :- N > I, L = [H|T], pow(2,I,H),I1 is I+1, potencias(I1,N,T).
+% 12) Defina um predicao recursivo cedulas(V,L1,L2), que receba um valor V e uma lista L1 de cédulas com valores em Reais (R$), em ordem decrescente, e obtenha a lista L2 decompondo o valor V em 0 ou mais cédulas de cada tipo.
+cedulas(0,_,[]).
+cedulas(V,[H1|T1],[H2|T2]):- Aux is div(V,H1), Aux1 is mod(V,H1), H2 = Aux, cedulas(Aux1,T1,T2).
