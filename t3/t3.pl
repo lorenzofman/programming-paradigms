@@ -40,6 +40,6 @@ zipMult([],[],[]).
 zipMult(L1,L2,L3) :- L1 = [H1|T1],L2 = [H2|T2], L3 = [H3|T3], H3 is H2 * H1, zipMult(T1,T2,T3).
 % 11) Defina um predicado recursivo potencias(N,L), de forma que L seja uma lista com as N primeiras potências de 2, sendo a primeira 2^0 e assim por diante, conforme o exemplo abaixo:
 potencias(0,[]).
-potencias(1,1).
-potencias(N,L) :- N >= 0, L = [H|H1|T], H1 is H*2,N1 is N-1, potencias(N1,T).
+inverse([],[]).
+inverse(L,L1) :- L = [H|T], conc(T1,H,L1), inverse(T,T1).
 % 12)
