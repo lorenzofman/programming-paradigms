@@ -8,8 +8,11 @@ namespace MersennePrimeFinderFunctional
 {
 	public class MersenneFinder
 	{
-
-		private static Func<UInt64, UInt64> CalculateMersennePrime = index =>
+		private static Func<int, bool> IsPrime = number =>
+		{
+			return number > 1 && Enumerable.Range(2, number - 2).Where(n => number % n == 0).Count() == 0;
+		};
+		private static Func<int, int> CalculateMersennePrime = index =>
 		{
 			return 0;
 		};
@@ -17,7 +20,7 @@ namespace MersennePrimeFinderFunctional
 		{
 			Console.WriteLine("Mersenne index: ");
 			string input = Console.ReadLine();
-			Console.WriteLine("Result: " + CalculateMersennePrime(Convert.ToUInt64(input)));
+			Console.WriteLine("Result: " + CalculateMersennePrime(Convert.ToInt32(input)));
 		}
 	}
 }
