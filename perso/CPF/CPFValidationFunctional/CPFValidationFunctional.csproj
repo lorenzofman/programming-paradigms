@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9E447316-3DF3-495B-9A76-4841CD5719D7}</ProjectGuid>
+    <ProjectGuid>{7A44DBBA-DBC1-4B5D-8754-95EB1C3A310E}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>MersennePrimeFinderFunctional</RootNamespace>
-    <AssemblyName>MersennePrimeFinderFunctional</AssemblyName>
+    <RootNamespace>CPFValidationFunctional</RootNamespace>
+    <AssemblyName>CPFValidationFunctional</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -36,10 +36,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MersenneFinder.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="System.Numerics" />
+    <Compile Include="CPFValidation.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
