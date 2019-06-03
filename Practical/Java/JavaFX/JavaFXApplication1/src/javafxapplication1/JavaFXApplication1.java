@@ -72,9 +72,6 @@ public class JavaFXApplication1 extends Application {
            index++;
        }
        imageView = new ImageView(images.get(index % (images.size() - 1)));
-       PopulateHBox();
-       stage.setScene(new Scene(hb, 300, 250));
-       stage.show();
    }
    
    private void PopulateHBox()
