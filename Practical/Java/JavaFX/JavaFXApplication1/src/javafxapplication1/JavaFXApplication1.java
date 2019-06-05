@@ -71,7 +71,8 @@ public class JavaFXApplication1 extends Application {
        {
            index++;
        }
-       imageView = new ImageView(images.get(index % (images.size() - 1)));
+       shownImage = images.get(Math.floorMod(index, (images.size() - 1)));
+       imageView.setImage(shownImage);
    }
    
    private void PopulateHBox()
