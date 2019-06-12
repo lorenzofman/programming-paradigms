@@ -9,12 +9,12 @@ import java.util.Scanner;
 
 public class RandomPickerCmd {
 
-    public static void main(String[] args) throws IOException
+    public static void main(String[] args) throws Exception
     {
         String path = args[0];
         ArrayList<String> listOfNames = readListFromFile(path);
-        Shuffler<String> shuffler = new OfflineShuffler<>();
-        shuffler.Shuffle(listOfNames);
+        Shuffler<String> shuffler = new OnlineShuffler<>();
+        listOfNames = shuffler.Shuffle(listOfNames);
         displayOneByOne(listOfNames);
     }
 
@@ -40,5 +40,4 @@ public class RandomPickerCmd {
             System.in.read();
         }
     }
-
 }

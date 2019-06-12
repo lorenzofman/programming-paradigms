@@ -1,11 +1,12 @@
 package sample;
 
-import java.util.List;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Random;
 
 public abstract class Shuffler<E>
 {
-    protected abstract void Shuffle(List<E> list);
+    protected abstract ArrayList<E> Shuffle(ArrayList<E> list) throws Exception;
     private static Random randomGenerator;
     protected int RandomRange(int min, int max)
     {
