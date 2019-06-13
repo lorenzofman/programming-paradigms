@@ -12,10 +12,9 @@ public class RandomPickerCmd {
     public static void main(String[] args) throws Exception
     {
         String path = args[0];
-        ArrayList<String> listOfNames = readListFromFile(path);
-        Shuffler<String> shuffler = new OnlineShuffler<>();
-        listOfNames = shuffler.Shuffle(listOfNames);
-        displayOneByOne(listOfNames);
+        ShufflerController<String> shufflerController = new ShufflerController<>();
+        ArrayList<String> shuffledList = shufflerController.Shuffle(readListFromFile(path));
+        displayOneByOne(shuffledList);
     }
 
     private static ArrayList<String> readListFromFile(String path) throws FileNotFoundException
