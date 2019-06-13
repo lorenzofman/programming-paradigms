@@ -13,17 +13,20 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Optional;
+import java.util.Scanner;
 
 public class RandomPickerGUI extends Application
 {
+    private TextArea listOfNamesTextArea = new TextArea();
+    private ArrayList<String> shuffledList = new ArrayList<>();
+    private int index = 0;
+
     public static void main(String[] args)
     {
-
         launch(args);
     }
-
-    private TextArea listOfNamesTextArea = new TextArea();
 
     @Override
     public void start(Stage primaryStage)
@@ -32,15 +35,63 @@ public class RandomPickerGUI extends Application
         VBox program = new VBox(menuBar);
 
         HBox hBox = new HBox(listOfNamesTextArea);
+        Label label = new Label();
+        hBox.getChildren().add(label);
 
         program.getChildren().add(hBox);
 
+        Button shuffleButton = new Button("Shuffle");
+        Button nextButton = new Button("Next");
+        nextButton.setDisable(true);
+        shuffleButton.setOnAction(e ->
+        {
+            shuffleButton.setDisable(true);
+            nextButton.setDisable(false);
+            ArrayList<String> originalList = readListFromTextArea();
+            index = 0;
+            try
+            {
+                shuffledList = new ShufflerController<String>().Shuffle(originalList);
+            }
+            catch (Exception ex)
+            {
+                showErrorDialog("Couldn't shuffle","Unknown runtime error", ex.getMessage());
+            }
+
+        });
+        nextButton.setOnAction(e->
+        {
+            if(index < shuffledList.size())
+            {
+                label.setText(label.getText() + shuffledList.get(index++) + "\n");
+            }
+            else
+            {
+                nextButton.setDisable(true);
+                shuffleButton.setDisable(false);
+            }
+        });
+
+
+        HBox buttons = new HBox(shuffleButton);
+        buttons.getChildren().add(nextButton);
+        program.getChildren().add(buttons);
         Scene scene = new Scene(program, 960, 600);
 
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
+    private ArrayList<String> readListFromTextArea()
+    {
+        ArrayList<String> listOfNames = new ArrayList<>();
+        Scanner sc = new Scanner(listOfNamesTextArea.getText());
+        while (sc.hasNextLine())
+        {
+            listOfNames.add(sc.nextLine());
+        }
+        return listOfNames;
+    }
 
     private MenuBar createMainMenuBar(Stage primaryStage)
     {
@@ -90,6 +141,10 @@ public class RandomPickerGUI extends Application
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Open File");
             File inputFile = fileChooser.showOpenDialog(primaryStage);
+            if(inputFile == null)
+            {
+                return;
+            }
             String text = null;
             try
             {
@@ -97,11 +152,7 @@ public class RandomPickerGUI extends Application
             }
             catch (IOException ex)
             {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Invalid input");
-                alert.setHeaderText("Couldn't read file or file is missing");
-                alert.setContentText("Please try again with a different file");
-                alert.showAndWait();
+                showErrorDialog("Invalid input","Couldn't read file or file is missing", ex.getMessage());
             }
             if(listOfNamesTextArea.getText().length() > 0)
             {
@@ -140,5 +191,13 @@ public class RandomPickerGUI extends Application
         });
     }
 
+    private void showErrorDialog(String title, String header, String content)
+    {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
 
 }
