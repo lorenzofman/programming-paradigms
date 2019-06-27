@@ -10,10 +10,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.FileNotFoundException;
+
 public class Main extends Application {
 
     @Override
-    public void start(Stage stage)
+    public void start(Stage stage) throws FileNotFoundException
     {
         EnadeTable table = new EnadeTable();
         table.CreateFXTable();
