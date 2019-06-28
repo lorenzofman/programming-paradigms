@@ -61,6 +61,6 @@ public class EnadeTable
 
     private Question CreateQuestionFromRecord(String[] strings)
     {
-        return new Question(strings[1], strings[2], strings[3], strings[4], strings[5], strings[8], strings[9], strings[10], strings[11]);
+        return new Question(strings[1], strings[2], strings[3], strings[4], strings[5], strings[8], strings[9], strings[10], strings[11], strings.length == 18 ? strings[17] : null, strings[7]);
     }
 }

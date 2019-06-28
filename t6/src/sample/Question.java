@@ -16,6 +16,8 @@ public class Question
     private SimpleStringProperty regionRightQuestions;
     private SimpleStringProperty countryRightQuestions;
     private SimpleStringProperty dif;
+    private String imageUrl;
+    private String answerKey;
 
     public String getYear()
     {
@@ -153,7 +155,7 @@ public class Question
     }
 
 
-    public Question(String year, String testType, String questionType, String id, String object, String courseRightQuestions, String regionRightQuestions, String countryRightQuestions, String dif)
+    public Question(String year, String testType, String questionType, String id, String object, String courseRightQuestions, String regionRightQuestions, String countryRightQuestions, String dif, String imageUrl, String answerKey)
     {
         this.year = new SimpleStringProperty(year);
         this.testType = new SimpleStringProperty(testType);
@@ -164,5 +166,27 @@ public class Question
         this.regionRightQuestions = new SimpleStringProperty(regionRightQuestions);
         this.countryRightQuestions = new SimpleStringProperty(countryRightQuestions);
         this.dif = new SimpleStringProperty(dif);
+        this.imageUrl = imageUrl;
+        this.answerKey = answerKey;
+    }
+
+    public String getImageUrl()
+    {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl)
+    {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getAnswerKey()
+    {
+        return answerKey;
+    }
+
+    public void setAnswerKey(String answerKey)
+    {
+        this.answerKey = answerKey;
     }
 }
