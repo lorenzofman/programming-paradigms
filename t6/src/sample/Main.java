@@ -7,8 +7,8 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import java.io.IOException;
+import java.net.MalformedURLException;
 
 public class Main extends Application
 {
@@ -21,12 +21,13 @@ public class Main extends Application
         VBox vbox = new VBox();
         MenuBar menuBar = createMainMenuBar(stage);
         vbox.getChildren().addAll(menuBar, table.createFXTable());
-        stage.setScene(new Scene(vbox,1200,512+256));
+        stage.setScene(new Scene(vbox, 1200, 512 + 256));
         stage.setTitle("ENADE");
         stage.show();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         launch(args);
     }
 
@@ -68,9 +69,14 @@ public class Main extends Application
             try
             {
                 table.updateFXTable();
-            } catch (IOException ex)
+            }
+            catch (MalformedURLException ex)
             {
-                ex.printStackTrace();
+                ErrorAlert.DisplayError("Invalid URL", ex);
+            }
+            catch (IOException ex)
+            {
+                ErrorAlert.DisplayError("Invalid URL file", ex);
             }
         });
     }
