@@ -3,11 +3,9 @@ package sample;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -15,6 +13,8 @@ import java.io.IOException;
 public class Main extends Application
 {
     private EnadeTable table = new EnadeTable();
+    public static String defaultUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTO06Jdr3J1kPYoTPRkdUaq8XuslvSD5--FPMht-ilVBT1gExJXDPTiX0P3FsrxV5VKUZJrIUtH1wvN/pub?gid=0&single=true&output=csv";
+
     @Override
     public void start(Stage stage) throws IOException
     {
@@ -22,9 +22,9 @@ public class Main extends Application
         MenuBar menuBar = createMainMenuBar(stage);
         vbox.getChildren().addAll(menuBar, table.createFXTable());
         stage.setScene(new Scene(vbox,1200,512+256));
+        stage.setTitle("ENADE");
         stage.show();
     }
-
 
     public static void main(String[] args) {
         launch(args);
@@ -77,7 +77,17 @@ public class Main extends Application
 
     private void setSourceButtonCallback(MenuItem sourceButton)
     {
-
+        sourceButton.setOnAction(e ->
+        {
+            Stage newWindow = new Stage();
+            TextField textField = new TextField();
+            textField.setText(defaultUrl);
+            newWindow.setScene(new Scene(textField, 768, 30));
+            newWindow.initModality(Modality.APPLICATION_MODAL);
+            newWindow.show();
+            newWindow.setTitle("URL Link");
+            newWindow.setOnCloseRequest(ev -> defaultUrl = textField.getText());
+        });
     }
 
     private void setExitButtonCallback(MenuItem exitButton)

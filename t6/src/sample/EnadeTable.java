@@ -44,14 +44,11 @@ public class EnadeTable
         table.setRowFactory(tv ->
         {
             TableRow<Question> row = new TableRow<>();
-            if(row.getItem() != null)
+            row.setOnMouseClicked(event ->
             {
-                row.setOnMouseClicked(event ->
-                {
-                    Question clickedRow = row.getItem();
-                    QuestionWindow.Create(clickedRow);
-                });
-            }
+                Question clickedRow = row.getItem();
+                QuestionWindow.Create(clickedRow);
+            });
             return row;
         });
 

@@ -32,7 +32,8 @@ public class QuestionWindow
             ImageView imageView = new ImageView(image);
             vbox.getChildren().add(imageView);
         }
-        newWindow.setScene(new Scene(vbox));
+        newWindow.setScene(new Scene(vbox,512,320));
+        newWindow.setTitle("Details");
         newWindow.initModality(Modality.APPLICATION_MODAL);
         newWindow.show();
     }
