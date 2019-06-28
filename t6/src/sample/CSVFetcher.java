@@ -7,10 +7,10 @@ import java.net.URL;
 public class CSVFetcher
 {
     private static final String fileName = "enade.csv";
-    public static CSVReader FetchCSV() throws IOException
+    public static CSVReader FetchCSV(boolean forceServerRefresh) throws IOException
     {
         File file = new File(fileName);
-        if(file.exists())
+        if(forceServerRefresh == false && file.exists())
         {
             return new CSVReader(file);
         }
