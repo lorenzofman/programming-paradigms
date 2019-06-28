@@ -2,14 +2,13 @@ package sample;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class CSVStream
+public class CSVReader
 {
     public ArrayList<String[]> records = new ArrayList<>();
-    public CSVStream(File file) throws IOException
+    public CSVReader(File file) throws IOException
     {
         FileInputStream fis = new FileInputStream(file);
         //https://stackoverflow.com/questions/14169661/read-complete-file-without-using-loop-in-java/14169729

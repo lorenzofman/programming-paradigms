@@ -16,7 +16,7 @@ public class Question
     private SimpleStringProperty regionRightQuestions;
     private SimpleStringProperty countryRightQuestions;
     private SimpleStringProperty dif;
-    
+
     public String getYear()
     {
         return year.get();
