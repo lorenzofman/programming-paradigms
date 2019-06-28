@@ -2,20 +2,20 @@ package sample;
 
 public class Question
 {
-    public enum TestType{General, Specific};
-    public enum QuestionType{Discursive, Objective};
+    //public enum TestType{General, Specific};
+    //public enum QuestionType{Discursive, Objective};
 
-    private int year;
-    private TestType testType;
-    private QuestionType questionType;
-    private int id;
+    private String year;
+    private String testType;
+    private String questionType;
+    private String id;
     private String object;
-    private float courseRightQuestions;
-    private float regionRightQuestions;
-    private float countryRightQuestions;
-    private float dif;
+    private String courseRightQuestions;
+    private String regionRightQuestions;
+    private String countryRightQuestions;
+    private String dif;
 
-    public Question(int year, TestType testType, QuestionType questionType, int id, String object, float courseRightQuestions, float regionRightQuestions, float countryRightQuestions, float dif)
+    public Question(String year, String testType, String questionType, String id, String object, String courseRightQuestions, String regionRightQuestions, String countryRightQuestions, String dif)
     {
         this.year = year;
         this.testType = testType;
