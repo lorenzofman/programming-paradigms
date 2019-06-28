@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -18,17 +19,21 @@ import java.util.ArrayList;
 public class EnadeTable
 {
     private final String[] columnNames = {"Ano", "Prova","Tipo Questão","Id Questão","Objeto","Acertos Curso","Acertos Região","Acertos Brasil","Dif"};
+    private final String[] attributesNames = {"year", "testType","questionType","id","object","courseRightQuestions","regionRightQuestions","countryRightQuestions","dif"};
 
     public Scene CreateFXTable() throws IOException
     {
         Label label = new Label("TableView Example");
         TableView table = new TableView();
         CSVStream csvStream = new CSVStream(new File("enade.csv"));
-        ArrayList<TableColumn<Question,String>> columns = new ArrayList<>();
+        ArrayList<TableColumn> columns = new ArrayList<>();
         ArrayList<Question> data = new ArrayList<>();
         for(int i = 0; i < columnNames.length; i++)
         {
-            columns.add(new TableColumn<>(columnNames[i]));
+            TableColumn column = new TableColumn(columnNames[i]);
+            column.setCellValueFactory(
+                    new PropertyValueFactory<Question,String>(attributesNames[i]));
+            columns.add(column);
         }
         // Skip header
         for(int i = 1; i < csvStream.records.size(); i++)
