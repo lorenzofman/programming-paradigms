@@ -2,12 +2,16 @@ package sample;
 
 import javafx.stage.FileChooser;
 
-import javax.swing.text.View;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import static javafx.application.Platform.runLater;
 
 public class CallbacksController implements RequestProcessable {
     private InterfaceController controller;
@@ -36,7 +40,9 @@ public class CallbacksController implements RequestProcessable {
         BufferedReader reader = new BufferedReader(new FileReader(file));
         String line = reader.readLine();
         while (line != null) {
-            new GitRequester(line,this).run();
+            GitRequester requester = new GitRequester(line,this);
+            Thread thread = new Thread(requester);
+            thread.start();
             line = reader.readLine();
         }
     }

@@ -3,6 +3,8 @@ package sample;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import javafx.concurrent.Task;
+import javafx.concurrent.Worker;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -10,7 +12,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class GitRequester implements Runnable {
+public class GitRequester extends Task {
     private String urlRequest;
     private RequestProcessable requestListener;
     public GitRequester(String url, RequestProcessable processable)
@@ -18,7 +20,6 @@ public class GitRequester implements Runnable {
         this.urlRequest = url;
         requestListener = processable;
     }
-    @Override
     public void run() {
         try {
             URL url = new URL(urlRequest);
@@ -36,5 +37,11 @@ public class GitRequester implements Runnable {
         } catch (java.io.IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    protected Object call() throws Exception {
+        run();
+        return null;
     }
 }
