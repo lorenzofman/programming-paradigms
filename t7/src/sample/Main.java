@@ -1,17 +1,15 @@
 package sample;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        View screen = new View();
-        screen.display(primaryStage);
+        InterfaceController viewer = new InterfaceController();
+        viewer.idleDisplay(primaryStage, new CallbacksController(viewer));
+
     }
 
 
