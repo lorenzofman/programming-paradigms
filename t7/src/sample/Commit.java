@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
@@ -14,6 +15,19 @@ public class Commit {
         return fetching;
     }
     private SimpleStringProperty link;
+    private SimpleFloatProperty avg;
+
+    public float getAvg() {
+        return avg.get();
+    }
+
+    public SimpleFloatProperty avgProperty() {
+        return avg;
+    }
+
+    public void setAvg(float avg) {
+        this.avg.set(avg);
+    }
 
     public String getLink() {
         return link.get();
@@ -49,6 +63,7 @@ public class Commit {
 
     public void setTotalLength(int totalLength) {
         this.totalLength.set(totalLength);
+        this.avg.set(this.totalLength.get()/this.commitCount.get());
     }
 
     private SimpleIntegerProperty commitCount;
@@ -59,6 +74,7 @@ public class Commit {
         this.link =  new SimpleStringProperty(link);
         this.commitCount = new SimpleIntegerProperty(0);
         this.totalLength = new SimpleIntegerProperty(0);
+        this.avg = new SimpleFloatProperty(0);
     }
 
 }

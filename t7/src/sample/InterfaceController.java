@@ -28,7 +28,7 @@ public class InterfaceController {
         commitsCount.setCellValueFactory(new PropertyValueFactory<Commit, String>("commitCount"));
         TableColumn commitsLength = new TableColumn("Total Length");
         tableView.getColumns().addAll(repoUrl, commitsCount, commitsLength);
-        commitsLength.setCellValueFactory(new PropertyValueFactory<Commit, String>("totalLength"));
+        commitsLength.setCellValueFactory(new PropertyValueFactory<Commit, String>("avg"));
         tableView.setItems(commits);
         vbox.getChildren().add(bar);
         vbox.getChildren().add(tableView);
@@ -67,7 +67,7 @@ public class InterfaceController {
             try {
                 callbacks.onOpen();
             } catch (IOException ex) {
-                ex.printStackTrace();
+                ExceptionHandler.displayException(ex);
             }
         });
         MenuItem quitItem = new MenuItem("Quit");
