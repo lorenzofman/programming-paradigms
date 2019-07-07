@@ -2,37 +2,20 @@ package sample;
 
 import javafx.stage.FileChooser;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.Scanner;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.io.*;
+import java.util.ArrayList;
 
-import static javafx.application.Platform.runLater;
-
-public class CallbacksController implements RequestProcessable {
-    private InterfaceController controller;
-    private File file;
+public class CallbacksController {
+    private InterfaceController interfaceController;
+    private ArrayList<Commit> commits = new ArrayList<>();
     public CallbacksController(InterfaceController controller)
     {
-        this.controller = controller;
+        this.interfaceController = controller;
     }
 
-    public void onOpen()
-    {
+    public void onOpen() throws IOException {
         FileChooser chooser = new FileChooser();
-        file = chooser.showOpenDialog(controller.getStage());
-    }
-
-    public void onExit()
-    {
-        controller.getStage().close();
-    }
-
-    public void onCommitAnalyze() throws IOException {
+        File file = chooser.showOpenDialog(interfaceController.getStage());
         if(file == null)
         {
             return;
@@ -40,10 +23,26 @@ public class CallbacksController implements RequestProcessable {
         BufferedReader reader = new BufferedReader(new FileReader(file));
         String line = reader.readLine();
         while (line != null) {
-            GitRequester requester = new GitRequester(line,this);
-            Thread thread = new Thread(requester);
-            thread.start();
+            Commit cInfo = new Commit(line);
+            commits.add(cInfo);
+            interfaceController.addLabelToTable(cInfo);
             line = reader.readLine();
+        }
+    }
+
+    public void onExit()
+    {
+        interfaceController.getStage().close();
+    }
+
+    public void onCommitAnalyze() {
+        for(Commit commit : commits)
+        {
+            if(commit.getFetching() == false){
+                GitRequester requester = new GitRequester(commit);
+                Thread thread = new Thread(requester);
+                thread.start();
+            }
         }
     }
 
@@ -51,11 +50,6 @@ public class CallbacksController implements RequestProcessable {
 
     public void onAbout()
     {
-        controller.showInfoDialog("About","Git analyzer", "Lorenzo SK\n2019");
-    }
-
-    @Override
-    public void requestDone(int commitNumber, int commitsLength) {
-
+        interfaceController.showInfoDialog("About","Git analyzer", "Lorenzo SK\n2019");
     }
 }

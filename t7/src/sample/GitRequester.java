@@ -4,34 +4,32 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import javafx.concurrent.Task;
-import javafx.concurrent.Worker;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 public class GitRequester extends Task {
-    private String urlRequest;
-    private RequestProcessable requestListener;
-    public GitRequester(String url, RequestProcessable processable)
+    private Commit info;
+    public GitRequester(Commit info)
     {
-        this.urlRequest = url;
-        requestListener = processable;
+        this.info = info;
     }
     public void run() {
         try {
-            URL url = new URL(urlRequest);
+            info.startFetching();
+            URL url = new URL(info.getLink());
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
             BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
             JsonParser parser = new JsonParser();
             JsonArray results = parser.parse(in.readLine()).getAsJsonArray();
-            System.out.println("Size: "+ results.size());
             for(JsonElement elem : results)
             {
-                System.out.println(elem.getAsJsonObject().get("commit"));
+                info.setCommitCount(info.getCommitCount() + 1);
+                String message = elem.getAsJsonObject().get("commit").getAsJsonObject().get("message").getAsString();
+                info.setTotalLength(info.getTotalLength() + message.length());
             }
 
         } catch (java.io.IOException e) {
@@ -39,8 +37,11 @@ public class GitRequester extends Task {
         }
     }
 
+    
+
+
     @Override
-    protected Object call() throws Exception {
+    protected Object call() {
         run();
         return null;
     }
