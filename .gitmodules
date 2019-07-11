@@ -1,3 +1,15 @@
 [submodule "perso/JavaLibGDX/Activity2"]
 	path = perso/JavaLibGDX/Activity2
 	url = https://github.com/lorenzofman/java-libgdx-extended-drop-example.git
+[submodule "perso/HuffmanCoding"]
+	path = perso/HuffmanCoding
+	url = https://github.com/lorenzofman/HuffmanCoding.git
+[submodule "perso/DiskSorting"]
+	path = perso/DiskSorting
+	url = https://github.com/lorenzofman/SecondaryMemorySorting.git
+[submodule "perso/Cache"]
+	path = perso/Cache
+	url = https://github.com/lorenzofman/CacheProject.git
+[submodule "perso/FinalProjectFDB"]
+	path = perso/FinalProjectFDB
+	url = https://github.com/lorenzofman/FinalProjectFDB.git
